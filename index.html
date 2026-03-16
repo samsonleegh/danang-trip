@@ -69,6 +69,36 @@ table.data .total-row{background:#FFF5EB;font-weight:600}
 .day-map .leaflet-popup-content-wrapper{border-radius:8px;font-family:'DM Sans',sans-serif}
 .day-map .leaflet-popup-content{margin:8px 12px;font-size:13px;line-height:1.4}
 .day-map .leaflet-popup-content b{color:var(--accent)}
+.vote-section{margin-bottom:24px}
+.vote-section h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.vote-option{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px}
+.vote-option:hover{border-color:var(--accent);background:var(--accent-light)}
+.vote-option.selected{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 1px var(--accent)}
+.vote-option .vote-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.vote-option.selected .vote-radio{border-color:var(--accent);background:var(--accent)}
+.vote-option.selected .vote-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.vote-option .vote-detail h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.vote-option .vote-detail p{font-size:12px;color:var(--sub);line-height:1.4}
+.vote-option .vote-link{margin-left:auto;flex-shrink:0;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;padding:6px 12px;border-radius:8px;background:var(--blue-light)}
+.vote-option .vote-link:hover{background:var(--blue);color:#fff}
+.vote-name{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.vote-name label{font-size:14px;font-weight:600;white-space:nowrap}
+.vote-name input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;outline:none;transition:border 0.2s}
+.vote-name input:focus{border-color:var(--accent)}
+.vote-btn{padding:12px 28px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s}
+.vote-btn:hover{background:#a94400}
+.vote-btn:disabled{background:var(--sub);cursor:not-allowed}
+.vote-msg{margin-top:10px;font-size:13px;font-weight:500;min-height:20px}
+.vote-results{margin-top:24px}
+.vote-results h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.result-bar-wrap{margin-bottom:12px}
+.result-bar-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px}
+.result-bar-label span:last-child{color:var(--accent)}
+.result-bar{height:28px;background:#F0EEE9;border-radius:8px;overflow:hidden;position:relative}
+.result-bar-fill{height:100%;border-radius:8px;transition:width 0.5s ease;min-width:0}
+.result-bar-voters{font-size:12px;color:var(--sub);margin-top:4px}
+.vote-setup-msg{background:var(--amber-light);border:1px solid #E8D5A8;border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--amber);margin-bottom:16px}
+.vote-setup-msg a{color:var(--accent);font-weight:600}
 .map-marker{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3)}
 @media(max-width:600px){.split-box{grid-template-columns:1fr}.split-col:first-child{border-right:none;border-bottom:1px solid var(--border)}.checklist{columns:1}.tabs{gap:4px}.tab{padding:8px 14px;font-size:13px}.day-map{height:250px;margin:0 12px 12px}}
 </style>
@@ -92,6 +122,7 @@ table.data .total-row{background:#FFF5EB;font-weight:600}
 <div class="tab" onclick="showPanel('budget')">Budget</div>
 <div class="tab" onclick="showPanel('markets')">Night markets</div>
 <div class="tab" onclick="showPanel('tips')">Tips & packing</div>
+<div class="tab" onclick="showPanel('vote')">Vote: Hoi An stay</div>
 </div>
 
 <!-- ITINERARY PANEL -->
@@ -315,6 +346,69 @@ table.data .total-row{background:#FFF5EB;font-weight:600}
 </ul>
 </div>
 
+<!-- VOTE PANEL -->
+<div id="vote" class="panel">
+<h3 style="margin-bottom:4px">Hoi An Accommodation Vote</h3>
+<p style="font-size:13px;color:var(--sub);margin-bottom:16px">Pick your preferred stay for 16–18 May (2 nights). One vote per person — you can change your vote anytime.</p>
+
+<div id="vote-setup-banner" class="vote-setup-msg" style="display:none">
+Shared voting not connected yet — votes are saved locally only. Set up jsonbin.io to enable shared results across all devices.
+</div>
+
+<div class="vote-name">
+<label for="voter-name">Your name</label>
+<input type="text" id="voter-name" placeholder="e.g. Sam" maxlength="30">
+</div>
+
+<div class="vote-section">
+<h3>🏠 Airbnb</h3>
+<div class="vote-option" onclick="selectVote(this,'airbnb1')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Hoi An Ancient Town 5' walk / Entire house / Free Bike</h4>
+<p>Full house near Ancient Town, free bicycles included</p>
+</div>
+<a class="vote-link" href="https://www.airbnb.com.sg/rooms/40847000?adults=9&check_in=2026-05-16&check_out=2026-05-18" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+<div class="vote-option" onclick="selectVote(this,'airbnb2')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Private Cozy in Hoi An w/ Pool — 5BR — 10 min to center</h4>
+<p>5-bedroom villa with pool, short ride to old town</p>
+</div>
+<a class="vote-link" href="https://www.airbnb.com.sg/rooms/1464858680492197171?adults=9&check_in=2026-05-16&check_out=2026-05-18" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+</div>
+
+<div class="vote-section">
+<h3>🏨 Hotel / Homestay</h3>
+<div class="vote-option" onclick="selectVote(this,'hotel1')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Loc Phat Hoi An Homestay & Villa</h4>
+<p>Homestay villa on Agoda</p>
+</div>
+<a class="vote-link" href="https://www.agoda.com/loc-phat-hoi-an-homestay-villa/hotel/hoi-an-vn.html" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+<div class="vote-option" onclick="selectVote(this,'hotel2')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Fairy Garden Villa</h4>
+<p>Villa on Agoda</p>
+</div>
+<a class="vote-link" href="https://www.agoda.com/fairy-garden-villa/hotel/hoi-an-vn.html" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+</div>
+
+<button class="vote-btn" id="vote-submit" onclick="submitVote()" disabled>Submit vote</button>
+<div class="vote-msg" id="vote-msg"></div>
+
+<div class="vote-results" id="vote-results">
+<h3>Live Results</h3>
+<div id="results-container"><p style="font-size:13px;color:var(--sub)">No votes yet.</p></div>
+</div>
+</div>
+
 </div>
 
 <script>
@@ -424,6 +518,110 @@ initDayMap('map-day5',[
 {lat:15.8811,lng:108.3223,name:'② Check out Coco Việt Homestay',time:'10:45 AM'},
 {lat:16.0554,lng:108.2022,name:'③ Da Nang Airport',time:'2:15 PM'}
 ],'#C75000',12);
+
+// --- Vote config (jsonbin.io) ---
+// Setup: 1) Go to jsonbin.io and create a free account
+//        2) Copy your Master Key from the API Keys page
+//        3) Create a new bin with content: {}
+//        4) Paste the Bin ID and Master Key below
+var JSONBIN_ID='69b7c319aa77b81da9eb8c0e';
+var JSONBIN_KEY='$2a$10$P8pPr52PxWrOVdXEKiQa2OW/4sSg01/41aXLFpYqZvo.6BnoH9DPi';
+
+// --- Vote logic ---
+var selectedVoteId=null;
+
+// Show setup banner if backend not configured
+if(!JSONBIN_ID||!JSONBIN_KEY){var sb=document.getElementById('vote-setup-banner');if(sb)sb.style.display='';}
+
+function fetchVotes(callback){
+  if(!JSONBIN_ID||!JSONBIN_KEY){
+    callback(JSON.parse(localStorage.getItem('hoian_votes')||'{}'));return;
+  }
+  fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID+'/latest',{
+    headers:{'X-Access-Key':JSONBIN_KEY}
+  })
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var votes=data.record||{};
+      delete votes._init;
+      localStorage.setItem('hoian_votes',JSON.stringify(votes));
+      callback(votes);
+    })
+    .catch(function(){callback(JSON.parse(localStorage.getItem('hoian_votes')||'{}'));});
+}
+
+function postVote(name,choice,callback){
+  // Read current votes, merge, then write back
+  fetchVotes(function(votes){
+    votes[name]=choice;
+    localStorage.setItem('hoian_votes',JSON.stringify(votes));
+    if(!JSONBIN_ID||!JSONBIN_KEY){callback(true);return;}
+    fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+      body:JSON.stringify(votes)
+    })
+      .then(function(r){return r.json()})
+      .then(function(data){
+        if(data.record){callback(true);}
+        else{callback(false,data.message||'Server error');}
+      })
+      .catch(function(){callback(true,'Saved locally (offline)');});
+  });
+}
+
+function selectVote(el,id){
+  document.querySelectorAll('.vote-option').forEach(function(o){o.classList.remove('selected')});
+  el.classList.add('selected');
+  selectedVoteId=id;
+  document.getElementById('vote-submit').disabled=false;
+}
+
+function submitVote(){
+  var name=document.getElementById('voter-name').value.trim();
+  var msg=document.getElementById('vote-msg');
+  var btn=document.getElementById('vote-submit');
+  if(!name){msg.style.color='#c00';msg.textContent='Please enter your name first.';return;}
+  if(!selectedVoteId){msg.style.color='#c00';msg.textContent='Please select an option.';return;}
+  btn.disabled=true;btn.textContent='Saving...';
+  postVote(name.toLowerCase(),selectedVoteId,function(ok,info){
+    btn.disabled=false;btn.textContent='Submit vote';
+    if(ok){
+      msg.style.color='#1D9E75';
+      msg.textContent='Vote saved for '+name+'!'+(info?' ('+info+')':'');
+    }else{
+      msg.style.color='#c00';
+      msg.textContent='Error: '+(info||'Could not save vote.');
+    }
+    renderVoteResults();
+  });
+}
+
+function renderVoteResults(){
+  var container=document.getElementById('results-container');
+  fetchVotes(function(votes){
+    var labels={airbnb1:'Hoi An Ancient Town 5\u2019 walk',airbnb2:'Private Cozy w/ Pool \u2014 5BR',hotel1:'Loc Phat Homestay & Villa',hotel2:'Fairy Garden Villa'};
+    var tally={},total=0,voterMap={};
+    Object.keys(votes).forEach(function(n){
+      var v=votes[n];tally[v]=(tally[v]||0)+1;total++;
+      if(!voterMap[v])voterMap[v]=[];
+      voterMap[v].push(n.charAt(0).toUpperCase()+n.slice(1));
+    });
+    if(total===0){container.innerHTML='<p style="font-size:13px;color:var(--sub)">No votes yet.</p>';return;}
+    var html='';
+    ['airbnb1','airbnb2','hotel1','hotel2'].forEach(function(k){
+      var count=tally[k]||0;var pct=Math.round(count/total*100);
+      var voters=voterMap[k]?voterMap[k].join(', '):'';
+      html+='<div class="result-row" style="margin-bottom:12px">';
+      html+='<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px"><span>'+labels[k]+'</span><span>'+count+' vote'+(count!==1?'s':'')+'</span></div>';
+      html+='<div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:var(--accent);border-radius:6px;transition:width 0.3s"></div></div>';
+      if(voters) html+='<div class="result-bar-voters">'+voters+'</div>';
+      html+='</div>';
+    });
+    container.innerHTML=html;
+  });
+}
+renderVoteResults();
 
 // Fix map rendering for the initially open day card
 setTimeout(function(){
