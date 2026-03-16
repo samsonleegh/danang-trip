@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Da Nang + Hoi An | 14–18 May 2026 | 9 Pax</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#FAFAF8;--card:#FFFFFF;--text:#1A1A1A;--sub:#6B6B6B;--border:#E8E6E1;--accent:#C75000;--accent-light:#FFF5EB;--blue:#1D6FA5;--blue-light:#E6F1FB;--green:#1D9E75;--green-light:#E1F5EE;--purple:#534AB7;--purple-light:#EEEDFE;--coral:#D85A30;--coral-light:#FAECE7;--pink:#D4537E;--pink-light:#FBEAF0;--teal:#0F6E56;--teal-light:#E1F5EE;--amber:#BA7517;--amber-light:#FAEEDA;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:900px;margin:0 auto;padding:24px 20px 60px}
+.hero{text-align:center;padding:48px 20px 40px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,48px);font-weight:700;color:var(--accent);letter-spacing:-0.5px}
+.hero .subtitle{font-size:18px;color:var(--sub);margin-top:8px;font-weight:400}
+.hero .dates{display:inline-flex;gap:8px;margin-top:16px;flex-wrap:wrap;justify-content:center}
+.hero .dates span{font-size:13px;padding:6px 14px;background:var(--accent-light);color:var(--accent);border-radius:20px;font-weight:600}
+.tabs{display:flex;gap:6px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.tab{padding:10px 18px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--sub);white-space:nowrap;transition:all 0.2s}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.panel{display:none}
+.panel.active{display:block}
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow)}
+.day-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background 0.15s}
+.day-header:hover{background:#FAFAF8}
+.day-header .left{display:flex;align-items:center;gap:14px}
+.day-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0}
+.day-info h3{font-size:16px;font-weight:600;margin-bottom:2px}
+.day-info .day-sub{font-size:13px;color:var(--sub)}
+.chevron{width:20px;height:20px;transition:transform 0.3s;flex-shrink:0;color:var(--sub)}
+.day-card.open .chevron{transform:rotate(180deg)}
+.day-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.day-card.open .day-body{max-height:3000px}
+.timeline{padding:0 20px 20px}
+.t-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #F0EEE9}
+.t-item:last-child{border-bottom:none}
+.t-time{font-size:13px;font-weight:600;color:var(--accent);min-width:65px;padding-top:2px}
+.t-content h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.t-content p{font-size:13px;color:var(--sub);line-height:1.55}
+.t-content .tip{font-size:12px;color:var(--teal);font-style:italic;margin-top:6px}
+.badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;margin:2px 2px 2px 0}
+.split-box{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:12px 0 4px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.split-col{padding:14px 16px;font-size:13px;line-height:1.55}
+.split-col:first-child{background:var(--green-light);border-right:1px solid var(--border)}
+.split-col:last-child{background:var(--amber-light)}
+.split-col strong{font-size:12px;display:block;margin-bottom:6px}
+.highlight{background:var(--pink-light);border-left:3px solid var(--pink);padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:13px;font-weight:500}
+.map-route{display:inline-block;margin:12px 20px 4px;padding:8px 16px;background:var(--blue-light);color:var(--blue);border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;transition:all 0.2s}
+.map-route:hover{background:var(--blue);color:#fff}
+table.data{width:100%;border-collapse:collapse;font-size:13px}
+table.data th{text-align:left;padding:10px 14px;background:#F5F4F0;font-weight:600;font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:0.3px;border-bottom:2px solid var(--border)}
+table.data td{padding:10px 14px;border-bottom:1px solid #F0EEE9;vertical-align:top}
+table.data tr:last-child td{border-bottom:none}
+table.data .row-label{font-weight:600;color:var(--text)}
+table.data .total-row{background:#FFF5EB;font-weight:600}
+.market-card{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow)}
+.market-day{font-size:12px;font-weight:700;color:var(--accent);padding-top:2px}
+.market-info h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.market-info p{font-size:12px;color:var(--sub);line-height:1.5}
+.tip-box{background:var(--teal-light);border-radius:var(--radius);padding:14px 18px;margin-top:16px;font-size:13px;color:var(--teal)}
+.tip-box strong{display:block;margin-bottom:4px;color:#085041}
+.checklist{columns:2;column-gap:20px;list-style:none;padding:0}
+.checklist li{font-size:13px;padding:6px 0;break-inside:avoid;display:flex;align-items:flex-start;gap:8px}
+.checklist li::before{content:"\u2610";font-size:16px;line-height:1;flex-shrink:0;color:var(--sub)}
+.day-map{height:300px;margin:0 20px 16px;border-radius:var(--radius);border:1px solid var(--border);z-index:0}
+.day-map .leaflet-popup-content-wrapper{border-radius:8px;font-family:'DM Sans',sans-serif}
+.day-map .leaflet-popup-content{margin:8px 12px;font-size:13px;line-height:1.4}
+.day-map .leaflet-popup-content b{color:var(--accent)}
+.vote-section{margin-bottom:24px}
+.vote-section h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.vote-option{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px}
+.vote-option:hover{border-color:var(--accent);background:var(--accent-light)}
+.vote-option.selected{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 1px var(--accent)}
+.vote-option .vote-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.vote-option.selected .vote-radio{border-color:var(--accent);background:var(--accent)}
+.vote-option.selected .vote-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.vote-option .vote-detail h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.vote-option .vote-detail p{font-size:12px;color:var(--sub);line-height:1.4}
+.vote-option .vote-link{margin-left:auto;flex-shrink:0;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;padding:6px 12px;border-radius:8px;background:var(--blue-light)}
+.vote-option .vote-link:hover{background:var(--blue);color:#fff}
+.vote-name{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.vote-name label{font-size:14px;font-weight:600;white-space:nowrap}
+.vote-name input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;outline:none;transition:border 0.2s}
+.vote-name input:focus{border-color:var(--accent)}
+.vote-btn{padding:12px 28px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s}
+.vote-btn:hover{background:#a94400}
+.vote-btn:disabled{background:var(--sub);cursor:not-allowed}
+.vote-msg{margin-top:10px;font-size:13px;font-weight:500;min-height:20px}
+.vote-results{margin-top:24px}
+.vote-results h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.result-bar-wrap{margin-bottom:12px}
+.result-bar-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px}
+.result-bar-label span:last-child{color:var(--accent)}
+.result-bar{height:28px;background:#F0EEE9;border-radius:8px;overflow:hidden;position:relative}
+.result-bar-fill{height:100%;border-radius:8px;transition:width 0.5s ease;min-width:0}
+.result-bar-voters{font-size:12px;color:var(--sub);margin-top:4px}
+.vote-setup-msg{background:var(--amber-light);border:1px solid #E8D5A8;border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--amber);margin-bottom:16px}
+.vote-setup-msg a{color:var(--accent);font-weight:600}
+.map-marker{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3)}
+@media(max-width:600px){.split-box{grid-template-columns:1fr}.split-col:first-child{border-right:none;border-bottom:1px solid var(--border)}.checklist{columns:1}.tabs{gap:4px}.tab{padding:8px 14px;font-size:13px}.day-map{height:250px;margin:0 12px 12px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+<h1>Da Nang + Hoi An</h1>
+<p class="subtitle">5 days 4 nights &nbsp;|&nbsp; 9 pax &nbsp;|&nbsp; 14–18 May 2026</p>
+<div class="dates">
+<span>Da Nang: 14–16 May</span>
+<span>Hoi An: 16–18 May</span>
+<span>Arrive 1:10 PM &nbsp;→&nbsp; Depart 2:15 PM</span>
+</div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="showPanel('itinerary')">Itinerary</div>
+<div class="tab" onclick="showPanel('activities')">By age group</div>
+<div class="tab" onclick="showPanel('budget')">Budget</div>
+<div class="tab" onclick="showPanel('markets')">Night markets</div>
+<div class="tab" onclick="showPanel('tips')">Tips & packing</div>
+<div class="tab" onclick="showPanel('vote')">Vote: Hoi An stay</div>
+</div>
+
+<!-- ITINERARY PANEL -->
+<div id="itinerary" class="panel active">
+
+<div class="day-card open" id="day1">
+<div class="day-header" onclick="toggleDay('day1')">
+<div class="left">
+<div class="day-num" style="background:var(--blue-light);color:var(--blue)">D1</div>
+<div class="day-info"><h3>Thursday 14 May</h3><div class="day-sub">Arrive + Con Market + Beach + Evening Stroll</div></div>
+</div>
+<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="day-body"><a class="map-route" href="https://www.google.com/maps/dir/Da+Nang+International+Airport/My+Khe+Beach,+Da+Nang/Con+Market,+H%C3%B9ng+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+Da+Nang/My+Khe+Beach,+Da+Nang/An+Thuong+Night+Market,+An+Th%C6%B0%E1%BB%A3ng,+Ng%C5%A9+H%C3%A0nh+S%C6%A1n,+Da+Nang/@16.059,108.22,13z" target="_blank">🗺️ View Day 1 route on Google Maps</a>
+<div id="map-day1" class="day-map"></div>
+<div class="timeline">
+<div class="t-item"><div class="t-time">1:10 PM</div><div class="t-content"><h4>① Arrive Da Nang Airport <a href="https://maps.google.com/?q=Da+Nang+International+Airport" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Clear immigration (Singapore passport = visa-free 30 days). Grab to hotel — only 10 min.</p></div></div>
+<div class="t-item"><div class="t-time">1:45 PM</div><div class="t-content"><h4>② Check in — <a href="https://www.google.com/maps/place/Golden+Sand+House/@16.0672935,108.2422071,20z/" target="_blank" style="font-size:12px;text-decoration:none">Golden Sand House 📍</a></h4><p>Drop bags, freshen up, regroup. Near My Khe Beach.</p></div></div>
+<div class="t-item"><div class="t-time">2:30 PM</div><div class="t-content"><h4>③ Con Market (Chợ Cón) <a href="https://maps.google.com/?q=Con+Market+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Skip touristy Han Market. 2,000+ stalls, authentic, where locals actually shop. Fresh produce, street food, clothes, Vietnamese coffee. Banh xeo, mi quang, skewers all under SGD 3.</p><p class="tip">42 Luong Ngoc Quyen St. Cash only. Google Translate camera is your friend.</p></div></div>
+<div class="t-item"><div class="t-time">4:30 PM</div><div class="t-content"><h4>④ My Khe Beach <a href="https://maps.google.com/?q=My+Khe+Beach+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>First swim! Wide white sand, gentle waves. Sunbeds VND 50–100k. Golden hour photos.</p></div></div>
+<div class="t-item"><div class="t-time">6:30 PM</div><div class="t-content"><h4>④ My Khe sunset + beachfront stroll</h4><p>Golden hour on the beach. Walk along the coastal promenade — seafood restaurants, coconut stalls, and beach bars light up as the sun sets.</p></div></div>
+<div class="t-item"><div class="t-time">7:30 PM</div><div class="t-content"><h4>⑤ Dinner — Bac My An or An Thuong <a href="https://maps.google.com/?q=An+Thuong+Street+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Both walkable from hotel. Bac My An = cheapest local street food. An Thuong = cafes, craft beer, international mix. VND 60–120k/pax.</p></div></div>
+</div></div>
+</div>
+
+<div class="day-card" id="day2">
+<div class="day-header" onclick="toggleDay('day2')">
+<div class="left">
+<div class="day-num" style="background:var(--green-light);color:var(--green)">D2</div>
+<div class="day-info"><h3>Friday 15 May</h3><div class="day-sub">Ba Na Hills + Massage + Dragon Bridge Fire Show 🔥</div></div>
+</div>
+<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="day-body"><a class="map-route" href="https://www.google.com/maps/dir/My+Khe+Beach,+Da+Nang/Ba+Na+Hills,+Da+Nang/My+Khe+Beach,+Da+Nang/Banh+Xeo+Ba+Duong,+Hoang+Dieu,+Hai+Chau,+Da+Nang/Dragon+Bridge,+Da+Nang/Son+Tra+Night+Market,+Da+Nang/@16.05,108.15,12z" target="_blank">🗺️ View Day 2 route on Google Maps</a>
+<div id="map-day2" class="day-map"></div>
+<div class="timeline">
+<div class="t-item"><div class="t-time">7:00 AM</div><div class="t-content"><h4>① Breakfast & depart for Ba Na Hills</h4><p>Hotel breakfast at Golden Sand House. Driver departs (~45 min drive). Arrive by 8 AM when park opens.</p><p class="tip">Buy tickets on Klook in advance. ~950,000 VND (~SGD 55) incl. cable car + Fantasy Park.</p></div></div>
+<div class="t-item"><div class="t-time">8:30 AM</div><div class="t-content"><h4>② Cable car + Golden Bridge <a href="https://maps.google.com/?q=Golden+Bridge+Ba+Na+Hills" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>One of Asia's longest cable cars (20–25 min, 360° views). Head to Golden Bridge first — best photos before 10 AM.</p><p class="tip">If foggy, do Fantasy Park first and return to the bridge when it clears.</p></div></div>
+<div class="t-item"><div class="t-time">9:30 AM</div><div class="t-content"><h4>② French Village & Gardens</h4><p>Cobbled streets, cathedral, town square. Le Jardin d'Amour. 5–10°C cooler than Da Nang.</p>
+<div class="split-box">
+<div class="split-col"><strong>Older folks</strong>Cafe in French Village. Browse shops. Flat and easy. Enjoy the cool mountain air.</div>
+<div class="split-col"><strong>Younger crew</strong>Fantasy Park — alpine coaster, roller coaster, 4D rides, horror house, 90+ arcade games. All included.</div>
+</div></div></div>
+<div class="t-item"><div class="t-time">12:30 PM</div><div class="t-content"><h4>② Depart Ba Na Hills</h4><p>Cable car down. Back at hotel by 1:30–2 PM.</p></div></div>
+<div class="t-item"><div class="t-time">2:30 PM</div><div class="t-content"><h4>③ Spa & massage</h4><p>90-min full body massage. Herbal Spa or Queen Spa. ~SGD 12–20/pax. Perfect post-mountain wind-down.</p></div></div>
+<div class="t-item"><div class="t-time">7:00 PM</div><div class="t-content"><h4>④ Dinner — Banh Xeo Ba Duong <a href="https://maps.google.com/?q=Banh+Xeo+Ba+Duong+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Best crispy pancakes in Da Nang. Hidden alley — go to the one at the END. VND 30–50k/serving.</p><p class="tip">K280/23 Hoang Dieu, Hai Chau. Use Google Maps to find the alley.</p></div></div>
+<div class="t-item"><div class="t-time">8:30 PM</div><div class="t-content"><h4>⑤ Dragon Bridge Fire Show 🔥 <a href="https://maps.google.com/?q=Dragon+Bridge+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4>
+<div class="highlight">Arrive by 8:30 PM for a good spot. Show at 9:00 PM sharp — dragon breathes fire and sprays water for ~15 min. Free. Spectacular!</div>
+<p>Stand on east bank (Bach Dang St) for best view. Don't stand too close — water spray reaches far!</p></div></div>
+<div class="t-item"><div class="t-time">9:15 PM</div><div class="t-content"><h4>⑥ Son Tra Night Market supper <a href="https://maps.google.com/?q=Son+Tra+Night+Market+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Right at the foot of Dragon Bridge. Perfect post-show spot. Grilled seafood, skewers, banh xeo, smoothies. Electric atmosphere.</p></div></div>
+</div></div>
+</div>
+
+<div class="day-card" id="day3">
+<div class="day-header" onclick="toggleDay('day3')">
+<div class="left">
+<div class="day-num" style="background:var(--purple-light);color:var(--purple)">D3</div>
+<div class="day-info"><h3>Saturday 16 May</h3><div class="day-sub">Lady Buddha → Marble Mountains → Hoi An Lanterns ✨</div></div>
+</div>
+<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="day-body"><a class="map-route" href="https://www.google.com/maps/dir/Linh+Ung+Pagoda+Son+Tra,+Da+Nang/Marble+Mountains,+Da+Nang/Be+Man+Seafood,+Da+Nang/Hoi+An+Old+Town,+Hoi+An/Hoi+An+Night+Market,+Hoi+An/@15.98,108.27,12z" target="_blank">🗺️ View Day 3 route on Google Maps</a>
+<div id="map-day3" class="day-map"></div>
+<div class="timeline">
+<div class="t-item"><div class="t-time">8:00 AM</div><div class="t-content"><h4>① Breakfast & check out Golden Sand House</h4><p>Pack up. Luggage in van for the day.</p></div></div>
+<div class="t-item"><div class="t-time">9:00 AM</div><div class="t-content"><h4>② Son Tra — Linh Ung Pagoda (Lady Buddha) <a href="https://maps.google.com/?q=Linh+Ung+Pagoda+Son+Tra+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>67m statue. Panoramic coastal views. Free entry. Flat grounds. ~45–60 min.</p></div></div>
+<div class="t-item"><div class="t-time">10:30 AM</div><div class="t-content"><h4>③ Marble Mountains <a href="https://maps.google.com/?q=Marble+Mountains+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4>
+<div class="split-box">
+<div class="split-col"><strong>Older folks</strong>Elevator up (VND 15,000). Huyen Khong Cave + pagodas at base. Flat, accessible. Skip summit. ~1 hr.</div>
+<div class="split-col"><strong>Younger crew</strong>Full stairs to summit — 360° views! Am Phu Cave (extra VND 40k). Steep but rewarding. 1.5–2 hrs.</div>
+</div>
+<p style="font-size:13px;color:var(--sub);margin-top:8px">Entry VND 40,000 (~SGD 2.50)</p></div></div>
+<div class="t-item"><div class="t-time">12:30 PM</div><div class="t-content"><h4>④ Seafood lunch + Lotte Mart <a href="https://maps.google.com/?q=Be+Man+Seafood+Da+Nang" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Be Man Seafood or local Mi Quang. Optional Lotte Mart stop for packaged gifts (fixed prices, air-con).</p></div></div>
+<div class="t-item"><div class="t-time">2:30 PM</div><div class="t-content"><h4>⑤ Drive to Hoi An — check in <a href="https://www.google.com/maps/place/Coco+Vi%E1%BB%87t+homestay+H%E1%BB%99i+An/@15.8811172,108.3197108,17z/" target="_blank" style="font-size:12px;text-decoration:none">Coco Việt Homestay 📍</a></h4><p>~30–40 min drive. Check in by 3:30 PM. Rest up for the evening.</p></div></div>
+<div class="t-item"><div class="t-time">5:00 PM</div><div class="t-content"><h4>⑥ Hoi An Old Town — first exploration <a href="https://maps.google.com/?q=Japanese+Covered+Bridge+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Old Town ticket VND 120,000 (5 heritage sites). Japanese Covered Bridge, Fujian Assembly Hall. Flat, car-free, shaded.</p></div></div>
+<div class="t-item"><div class="t-time">5:30 PM</div><div class="t-content"><h4>⑥ Lanterns at sunset ✨</h4>
+<div class="highlight">Hundreds of silk lanterns light up the entire old town. Walk along Thu Bon River. Release a floating lantern (VND 10–20k). Saturday = best lantern night of the week.</div></div></div>
+<div class="t-item"><div class="t-time">7:00 PM</div><div class="t-content"><h4>⑦ Hoi An Night Market dinner <a href="https://maps.google.com/?q=Hoi+An+Night+Market" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Riverside: grilled skewers, banh xeo, spring rolls. Or Morning Glory Restaurant for Cao Lau + White Rose dumplings. VND 50–150k/pax.</p></div></div>
+</div></div>
+</div>
+
+<div class="day-card" id="day4">
+<div class="day-header" onclick="toggleDay('day4')">
+<div class="left">
+<div class="day-num" style="background:var(--coral-light);color:var(--coral)">D4</div>
+<div class="day-info"><h3>Sunday 17 May</h3><div class="day-sub">Coconut Village + Cycling + An Bang Beach</div></div>
+</div>
+<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="day-body"><a class="map-route" href="https://www.google.com/maps/dir/Cam+Thanh+Coconut+Village,+Hoi+An/Banh+Mi+Phuong,+Hoi+An/Hoi+An+Old+Town/An+Bang+Beach,+Hoi+An/Mango+Rooms,+Hoi+An/@15.89,108.33,13z" target="_blank">🗺️ View Day 4 route on Google Maps</a>
+<div id="map-day4" class="day-map"></div>
+<div class="timeline">
+<div class="t-item"><div class="t-time">9:00 AM</div><div class="t-content"><h4>① Cam Thanh Coconut Village — basket boats <a href="https://maps.google.com/?q=Cam+Thanh+Coconut+Village+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Round basket boats through coconut palm waterways. Boatmen sing and do spinning tricks! Fun for all ages, gentle. ~1.5 hrs. VND 150–200k/pax.</p><p class="tip">Wear sunscreen + hat. Bring waterproof phone pouch.</p></div></div>
+<div class="t-item"><div class="t-time">11:00 AM</div><div class="t-content"><h4>② Banh Mi Phuong <a href="https://maps.google.com/?q=Banh+Mi+Phuong+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Anthony Bourdain's favourite. Queue moves fast. Or try Madam Khanh. VND 30–50k.</p></div></div>
+<div class="t-item"><div class="t-time">12:00 PM</div><div class="t-content"><h4>③ Cycling — rice paddies + Tra Que Village <a href="https://maps.google.com/?q=Tra+Que+Vegetable+Village+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Whole group cycles through lush rice paddies to Tra Que Vegetable Village. Flat terrain, easy pace, beautiful scenery. Bike rental ~VND 30–50k or guided tour ~VND 200k/pax.</p><p class="tip">Rent bikes from hotel or old town. Route is flat and shaded — suitable for all ages.</p></div></div>
+<div class="t-item"><div class="t-time">2:30 PM</div><div class="t-content"><h4>④ An Bang Beach <a href="https://maps.google.com/?q=An+Bang+Beach+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Quieter beach near Hoi An. Sunbeds VND 75k. Swim, relax, beach bars. ~20 min from old town.</p></div></div>
+<div class="t-item"><div class="t-time">5:30 PM</div><div class="t-content"><h4>⑤ Sunset in Hoi An <a href="https://maps.google.com/?q=An+Hoi+Bridge+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>An Hoi Bridge or rooftop bar. Lanterns equally beautiful on Sunday.</p></div></div>
+<div class="t-item"><div class="t-time">7:00 PM</div><div class="t-content"><h4>⑥ Farewell group dinner <a href="https://maps.google.com/?q=Mango+Rooms+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Splurge: Mango Rooms or Vy's Market Restaurant. Budget: Night Market again. Or The Field (rice paddy fine dining).</p></div></div>
+<div class="t-item"><div class="t-time">9:00 PM</div><div class="t-content"><h4>⑦ Last night — Thu Bon River <a href="https://maps.google.com/?q=Thu+Bon+River+Hoi+An" target="_blank" style="font-size:12px;text-decoration:none">📍</a></h4><p>Lantern boat ride on Thu Bon River (VND 50–100k). Bar-hop. Final massage. Soak it in.</p></div></div>
+</div></div>
+</div>
+
+<div class="day-card" id="day5">
+<div class="day-header" onclick="toggleDay('day5')">
+<div class="left">
+<div class="day-num" style="background:var(--accent-light);color:var(--accent)">D5</div>
+<div class="day-info"><h3>Monday 18 May</h3><div class="day-sub">Morning Hoi An → Airport → Home</div></div>
+</div>
+<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="day-body"><a class="map-route" href="https://www.google.com/maps/dir/Hoi+An+Old+Town,+Hoi+An/Da+Nang+International+Airport/@15.97,108.25,12z" target="_blank">🗺️ View Day 5 route on Google Maps</a>
+<div id="map-day5" class="day-map"></div>
+<div class="timeline">
+<div class="t-item"><div class="t-time">7:30 AM</div><div class="t-content"><h4>① Early morning Hoi An</h4><p>Old town in morning light — quietest, best photos. Japanese Bridge without crowds.</p></div></div>
+<div class="t-item"><div class="t-time">9:30 AM</div><div class="t-content"><h4>① Last shopping</h4><p>Collapsible lanterns, Vietnamese coffee, silk scarves, Hoi An spices.</p></div></div>
+<div class="t-item"><div class="t-time">10:45 AM</div><div class="t-content"><h4>② Check out Coco Việt & depart</h4><p>Driver to Da Nang Airport (~45 min). Arrive by 11:30 AM.</p></div></div>
+<div class="t-item"><div class="t-time">2:15 PM</div><div class="t-content"><h4>③ Fly home</h4><p>Arrive Singapore ~5:30 PM. Home for dinner!</p></div></div>
+</div></div>
+</div>
+
+</div>
+
+<!-- ACTIVITIES PANEL -->
+<div id="activities" class="panel">
+<table class="data">
+<thead><tr><th style="width:18%">Category</th><th style="width:41%">Older folks (60+)</th><th style="width:41%">Younger crew (27–36)</th></tr></thead>
+<tbody>
+<tr><td class="row-label">Sightseeing</td><td>Lady Buddha (flat grounds)<br>Marble Mountains (elevator)<br>Hoi An Old Town (car-free)<br>Ba Na Hills French Village<br>Dragon Bridge walk</td><td>Marble Mountains summit<br>Am Phu Cave<br>Fantasy Park + alpine coaster<br>Rice paddy cycling<br>Tra Que Vegetable Village</td></tr>
+<tr><td class="row-label">Beaches</td><td>My Khe (wide, gentle waves)<br>An Bang (sunbeds, relaxed)</td><td>My Khe (surfing, SUP)<br>An Bang (beach bars, volleyball)</td></tr>
+<tr><td class="row-label">Food</td><td>Con Market street food<br>Beachside seafood<br>Hoi An riverside cafes<br>Morning Glory Restaurant</td><td>Banh Xeo Ba Duong (hidden alley)<br>Banh Mi Phuong<br>Night market crawls<br>Craft beer on An Thuong St</td></tr>
+<tr><td class="row-label">Relaxation</td><td>Spa & massage (~$12–20/hr)<br>Hotel pool<br>Reaching Out Teahouse<br>Riverside coffee</td><td>Spa & massage<br>Sky36 rooftop bar<br>Hoi An bar-hop<br>Lantern boat ride</td></tr>
+<tr><td class="row-label">Shopping</td><td>Con Market (local)<br>Hoi An silk & lanterns<br>Lotte Mart (air-con)</td><td>Hoi An Central Market<br>Night market souvenirs<br>Coffee & spices as gifts</td></tr>
+<tr><td class="row-label">Group highlights</td><td colspan="2" style="text-align:center;font-weight:500">Dragon Bridge fire show — Fri 9 PM<br>Hoi An lanterns — Sat sunset<br>Coconut basket boats — Sun morning<br>Rice paddy cycling + Tra Que Village — Sun afternoon</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- BUDGET PANEL -->
+<div id="budget" class="panel">
+<table class="data">
+<thead><tr><th style="width:35%">Item</th><th style="width:25%">Est. SGD / pax</th><th style="width:40%">Notes</th></tr></thead>
+<tbody>
+<tr><td class="row-label">Flights (return)</td><td>$230</td><td>VietJet — booked ✓</td></tr>
+<tr><td class="row-label">Da Nang — <a href="https://www.google.com/maps/place/Golden+Sand+House/@16.0672935,108.2422071,20z/" target="_blank">Golden Sand House</a> (2 nights)</td><td>$20 – $50</td><td>Near My Khe Beach, ÷9</td></tr>
+<tr><td class="row-label">Hoi An — <a href="https://www.google.com/maps/place/Coco+Vi%E1%BB%87t+homestay+H%E1%BB%99i+An/@15.8811172,108.3197108,17z/" target="_blank">Coco Việt Homestay</a> (2 nights)</td><td>$20 – $45</td><td>Near old town, ÷9</td></tr>
+<tr><td class="row-label">Ba Na Hills entry</td><td>~$55</td><td>Cable car + Fantasy Park included</td></tr>
+<tr><td class="row-label">Private driver</td><td>$15 – $25</td><td>16-seat van, $85/day + $14/transfer, ÷9</td></tr>
+<tr><td class="row-label">Grab rides</td><td>$5 – $8</td><td>Short trips</td></tr>
+<tr><td class="row-label">Food (5 days)</td><td>$30 – $55</td><td>Pho $2, seafood $8–12, dinner $10–15</td></tr>
+<tr><td class="row-label">Massage / spa</td><td>$12 – $25</td><td>1–2 sessions, 60–90 min</td></tr>
+<tr><td class="row-label">Activities</td><td>$15 – $22</td><td>Marble Mtns $2.50, Hoi An $7, boat $10</td></tr>
+<tr><td class="row-label">Shopping</td><td>$10 – $25</td><td>Markets, coffee, lanterns</td></tr>
+<tr><td class="row-label">Misc</td><td>$5 – $8</td><td>SIM ~$3–5, tips, water</td></tr>
+<tr class="total-row"><td class="row-label">TOTAL</td><td>$362 – $473</td><td>~$400 realistic mid-range</td></tr>
+<tr class="total-row"><td class="row-label">Without Ba Na Hills</td><td>$307 – $418</td><td>~$345 realistic mid-range</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- MARKETS PANEL -->
+<div id="markets" class="panel">
+
+<div class="market-card">
+<div class="market-day">THU 14</div>
+<div class="market-info"><h4><span class="badge" style="background:var(--teal-light);color:var(--teal)">Bac My An / An Thuong</span></h4><p>Walkable from hotel. Local street food + international cafes and craft beer bars.<br><strong>Eat:</strong> Banh beo, bun cha ca, smoothies, craft beer</p></div>
+</div>
+
+<div class="market-card">
+<div class="market-day">FRI 15</div>
+<div class="market-info"><h4><span class="badge" style="background:var(--coral-light);color:var(--coral)">Son Tra Night Market</span></h4><p>Right at Dragon Bridge — electric atmosphere after the 9 PM fire show.<br><strong>Eat:</strong> Grilled seafood, banh xeo, skewers, coconut drinks</p></div>
+</div>
+
+<div class="market-card">
+<div class="market-day">SAT 16</div>
+<div class="market-info"><h4><span class="badge" style="background:var(--pink-light);color:var(--pink)">Hoi An Night Market</span></h4><p>Riverside + lanterns. Saturday = best atmosphere of the week.<br><strong>Eat:</strong> Grilled skewers, spring rolls, banh xeo, Cao Lau</p></div>
+</div>
+
+<div class="market-card">
+<div class="market-day">SUN 17</div>
+<div class="market-info"><h4><span class="badge" style="background:var(--pink-light);color:var(--pink)">Hoi An Night Market</span></h4><p>Second visit — try different stalls. Or Hoi An Central Market area for a local vibe.<br><strong>Eat:</strong> Com ga, sweet treats, different stalls</p></div>
+</div>
+
+<div class="tip-box">
+<strong>Alternative local picks</strong>
+<b>Helio Night Market</b> — Da Nang's largest. Food, beer, seafood, and shopping zones. Near the Sun Wheel. Wide aisles, great for groups. Open 5:30 PM–10:30 PM daily. ~15 min Grab from My Khe.<br><br>
+<b>Le Duan Night Market</b> — Small, local, zero tourists. Budget clothes, accessories, and street food along Le Duan St. Popular with Da Nang locals. Open 6 PM–11 PM.
+</div>
+</div>
+
+<!-- TIPS PANEL -->
+<div id="tips" class="panel">
+<h3 style="margin-bottom:12px">Practical tips</h3>
+<table class="data">
+<tbody>
+<tr><td class="row-label" style="width:25%">Visa</td><td>Not required — Singapore passport holders get visa-free entry for up to 30 days.</td></tr>
+<tr><td class="row-label">Currency</td><td>Vietnamese Dong (VND). VND 10,000 ≈ SGD 0.55. Vietcombank/BIDV ATMs. Cash for markets.</td></tr>
+<tr><td class="row-label">Transport</td><td>16-seat van with driver booked. Grab for short trips. Da Nang–Hoi An = 30–40 min.</td></tr>
+<tr><td class="row-label">Weather (May)</td><td>Dry season. 30–35°C. Ba Na Hills 5–10°C cooler. Sunscreen + hat essential.</td></tr>
+<tr><td class="row-label">Dragon Bridge</td><td>Fire show every Fri/Sat/Sun 9 PM. We catch it Friday (Day 2). Arrive 8:30 PM.</td></tr>
+<tr><td class="row-label">Markets</td><td>Con Market (local) over Han Market (touristy). Lotte Mart for packaged gifts. Bac My An for street food near hotel.</td></tr>
+<tr><td class="row-label">Night markets</td><td>Son Tra (at Dragon Bridge, best after fire show). Helio (largest, food + beer + shopping). An Thuong (walkable from hotel). Hoi An Night Market (riverside + lanterns). Note: Thanh Khe Tay & Hoa Khanh may be closed — skip these.</td></tr>
+<tr><td class="row-label">For older folks</td><td>Everything flat. Elevator at Marble Mtns. Cable car at Ba Na. Basket boats gentle. Hoi An car-free.</td></tr>
+<tr><td class="row-label">Group WhatsApp</td><td>Share hotel addresses, driver contact, flight details. Agree daily budget.</td></tr>
+</tbody>
+</table>
+
+<h3 style="margin:24px 0 12px">Packing checklist</h3>
+<ul class="checklist">
+<li>Passport (6+ months validity)</li>
+<li>Comfortable walking shoes + sandals</li>
+<li>Sunscreen, sunglasses, hat</li>
+<li>Light rain jacket (Ba Na Hills)</li>
+<li>Swimwear (x2)</li>
+<li>Light breathable clothing</li>
+<li>1 smart-casual outfit for dinners</li>
+<li>Insect repellent</li>
+<li>Reusable water bottle</li>
+<li>Portable charger</li>
+<li>Small daypack</li>
+<li>Waterproof phone pouch</li>
+</ul>
+</div>
+
+<!-- VOTE PANEL -->
+<div id="vote" class="panel">
+<h3 style="margin-bottom:4px">Hoi An Accommodation Vote</h3>
+<p style="font-size:13px;color:var(--sub);margin-bottom:16px">Pick your preferred stay for 16–18 May (2 nights). One vote per person — you can change your vote anytime.</p>
+
+<div id="vote-setup-banner" class="vote-setup-msg" style="display:none">
+Shared voting not connected yet — votes are saved locally only. Set up jsonbin.io to enable shared results across all devices.
+</div>
+
+<div class="vote-name">
+<label for="voter-name">Your name</label>
+<input type="text" id="voter-name" placeholder="e.g. Sam" maxlength="30">
+</div>
+
+<div class="vote-section">
+<h3>🏠 Airbnb</h3>
+<div class="vote-option" onclick="selectVote(this,'airbnb1')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Hoi An Ancient Town 5' walk / Entire house / Free Bike</h4>
+<p>Full house near Ancient Town, free bicycles included</p>
+</div>
+<a class="vote-link" href="https://www.airbnb.com.sg/rooms/40847000?adults=9&check_in=2026-05-16&check_out=2026-05-18" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+<div class="vote-option" onclick="selectVote(this,'airbnb2')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Private Cozy in Hoi An w/ Pool — 5BR — 10 min to center</h4>
+<p>5-bedroom villa with pool, short ride to old town</p>
+</div>
+<a class="vote-link" href="https://www.airbnb.com.sg/rooms/1464858680492197171?adults=9&check_in=2026-05-16&check_out=2026-05-18" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+</div>
+
+<div class="vote-section">
+<h3>🏨 Hotel / Homestay</h3>
+<div class="vote-option" onclick="selectVote(this,'hotel1')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Loc Phat Hoi An Homestay & Villa</h4>
+<p>Homestay villa on Agoda</p>
+</div>
+<a class="vote-link" href="https://www.agoda.com/loc-phat-hoi-an-homestay-villa/hotel/hoi-an-vn.html" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+<div class="vote-option" onclick="selectVote(this,'hotel2')">
+<div class="vote-radio"></div>
+<div class="vote-detail">
+<h4>Fairy Garden Villa</h4>
+<p>Villa on Agoda</p>
+</div>
+<a class="vote-link" href="https://www.agoda.com/fairy-garden-villa/hotel/hoi-an-vn.html" target="_blank" onclick="event.stopPropagation()">View &rarr;</a>
+</div>
+</div>
+
+<button class="vote-btn" id="vote-submit" onclick="submitVote()" disabled>Submit vote</button>
+<div class="vote-msg" id="vote-msg"></div>
+
+<div class="vote-results" id="vote-results">
+<h3>Live Results</h3>
+<div id="results-container"><p style="font-size:13px;color:var(--sub)">No votes yet.</p></div>
+</div>
+</div>
+
+</div>
+
+<script>
+function showPanel(id){
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.tab').forEach(t=>{if(t.textContent.toLowerCase().includes(id.substring(0,4))||
+(id==='itinerary'&&t.textContent==='Itinerary')||
+(id==='activities'&&t.textContent==='By age group')||
+(id==='budget'&&t.textContent==='Budget')||
+(id==='markets'&&t.textContent==='Night markets')||
+(id==='tips'&&t.textContent==='Tips & packing'))t.classList.add('active')});
+}
+function toggleDay(id){
+var el=document.getElementById(id);
+el.classList.toggle('open');
+// Invalidate map size when day card opens (Leaflet needs this)
+var mapEl=el.querySelector('.day-map');
+if(mapEl && mapEl._leafletMap){
+setTimeout(function(){mapEl._leafletMap.invalidateSize()},400);
+}
+}
+
+// --- Interactive Day Maps ---
+function createNumberedIcon(num, color){
+return L.divIcon({
+className:'',
+html:'<div class="map-marker" style="background:'+color+'">'+num+'</div>',
+iconSize:[28,28],
+iconAnchor:[14,14],
+popupAnchor:[0,-16]
+});
+}
+
+function initDayMap(containerId, stops, color, zoom){
+var mapEl=document.getElementById(containerId);
+if(!mapEl) return;
+var map=L.map(containerId,{scrollWheelZoom:false,attributionControl:false});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+attribution:'&copy; OpenStreetMap'
+}).addTo(map);
+
+var latlngs=[];
+stops.forEach(function(s,i){
+var icon=createNumberedIcon(i+1, color);
+var marker=L.marker([s.lat,s.lng],{icon:icon}).addTo(map);
+marker.bindPopup('<b>'+s.name+'</b>'+(s.time?'<br>'+s.time:''));
+latlngs.push([s.lat,s.lng]);
+});
+
+// Draw route line
+if(latlngs.length>1){
+L.polyline(latlngs,{color:color,weight:3,opacity:0.7,dashArray:'8,8'}).addTo(map);
+}
+
+var bounds=L.latLngBounds(latlngs);
+map.fitBounds(bounds,{padding:[35,35],maxZoom:zoom||14});
+mapEl._leafletMap=map;
+return map;
+}
+
+// Day 1: Arrive + Con Market + Beach + Evening
+initDayMap('map-day1',[
+{lat:16.0554,lng:108.2022,name:'① Da Nang Airport',time:'1:10 PM'},
+{lat:16.0671,lng:108.2422,name:'② Golden Sand House (check-in)',time:'1:45 PM'},
+{lat:16.0676,lng:108.2135,name:'③ Con Market (Chợ Cón)',time:'2:30 PM'},
+{lat:16.0588,lng:108.2462,name:'④ My Khe Beach',time:'4:30 PM'},
+{lat:16.0495,lng:108.2410,name:'⑤ An Thượng / Bac My An dinner',time:'7:30 PM'}
+],'#1D6FA5');
+
+// Day 2: Ba Na Hills + Dragon Bridge
+initDayMap('map-day2',[
+{lat:16.0671,lng:108.2422,name:'① Golden Sand House (depart)',time:'7:00 AM'},
+{lat:15.9977,lng:107.9882,name:'② Ba Na Hills / Golden Bridge',time:'8:30 AM'},
+{lat:16.0671,lng:108.2422,name:'③ Hotel + Spa',time:'2:30 PM'},
+{lat:16.0607,lng:108.2165,name:'④ Bánh Xèo Bà Dưỡng',time:'7:00 PM'},
+{lat:16.0612,lng:108.2275,name:'⑤ Dragon Bridge fire show',time:'8:30 PM'},
+{lat:16.0640,lng:108.2290,name:'⑥ Sơn Trà Night Market',time:'9:15 PM'}
+],'#1D9E75',13);
+
+// Day 3: Lady Buddha → Marble Mtns → Hoi An
+initDayMap('map-day3',[
+{lat:16.0671,lng:108.2422,name:'① Golden Sand House (check out)',time:'8:00 AM'},
+{lat:16.1005,lng:108.2778,name:'② Linh Ứng Pagoda (Lady Buddha)',time:'9:00 AM'},
+{lat:16.0038,lng:108.2633,name:'③ Marble Mountains',time:'10:30 AM'},
+{lat:16.0370,lng:108.2380,name:'④ Bé Mặn Seafood lunch',time:'12:30 PM'},
+{lat:15.8811,lng:108.3223,name:'⑤ Coco Việt Homestay (check in)',time:'2:30 PM'},
+{lat:15.8801,lng:108.3380,name:'⑥ Hoi An Old Town + Lanterns',time:'5:00 PM'},
+{lat:15.8770,lng:108.3390,name:'⑦ Hoi An Night Market',time:'7:00 PM'}
+],'#534AB7',12);
+
+// Day 4: Coconut Village + Cycling + An Bang Beach
+initDayMap('map-day4',[
+{lat:15.8650,lng:108.3450,name:'① Cẩm Thanh Coconut Village',time:'9:00 AM'},
+{lat:15.8795,lng:108.3315,name:'② Bánh Mì Phượng',time:'11:00 AM'},
+{lat:15.9000,lng:108.3550,name:'③ Rice paddies + Tra Que Village',time:'12:00 PM'},
+{lat:15.9020,lng:108.3360,name:'④ An Bàng Beach',time:'2:30 PM'},
+{lat:15.8780,lng:108.3370,name:'⑤ Sunset — An Hoi Bridge',time:'5:30 PM'},
+{lat:15.8790,lng:108.3365,name:'⑥ Farewell dinner',time:'7:00 PM'},
+{lat:15.8770,lng:108.3390,name:'⑦ Thu Bon River boat ride',time:'9:00 PM'}
+],'#D85A30');
+
+// Day 5: Morning Hoi An → Airport
+initDayMap('map-day5',[
+{lat:15.8801,lng:108.3380,name:'① Hoi An Old Town (morning + shopping)',time:'7:30 AM'},
+{lat:15.8811,lng:108.3223,name:'② Check out Coco Việt Homestay',time:'10:45 AM'},
+{lat:16.0554,lng:108.2022,name:'③ Da Nang Airport',time:'2:15 PM'}
+],'#C75000',12);
+
+// --- Vote config (jsonbin.io) ---
+// Setup: 1) Go to jsonbin.io and create a free account
+//        2) Copy your Master Key from the API Keys page
+//        3) Create a new bin with content: {}
+//        4) Paste the Bin ID and Master Key below
+var JSONBIN_ID='69b7c319aa77b81da9eb8c0e';
+var JSONBIN_KEY='$2a$10$P8pPr52PxWrOVdXEKiQa2OW/4sSg01/41aXLFpYqZvo.6BnoH9DPi';
+
+// --- Vote logic ---
+var selectedVoteId=null;
+
+// Show setup banner if backend not configured
+if(!JSONBIN_ID||!JSONBIN_KEY){var sb=document.getElementById('vote-setup-banner');if(sb)sb.style.display='';}
+
+function fetchVotes(callback){
+  if(!JSONBIN_ID||!JSONBIN_KEY){
+    callback(JSON.parse(localStorage.getItem('hoian_votes')||'{}'));return;
+  }
+  fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID+'/latest',{
+    headers:{'X-Access-Key':JSONBIN_KEY}
+  })
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var votes=data.record||{};
+      delete votes._init;
+      localStorage.setItem('hoian_votes',JSON.stringify(votes));
+      callback(votes);
+    })
+    .catch(function(){callback(JSON.parse(localStorage.getItem('hoian_votes')||'{}'));});
+}
+
+function postVote(name,choice,callback){
+  // Read current votes, merge, then write back
+  fetchVotes(function(votes){
+    votes[name]=choice;
+    localStorage.setItem('hoian_votes',JSON.stringify(votes));
+    if(!JSONBIN_ID||!JSONBIN_KEY){callback(true);return;}
+    fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_ID,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+      body:JSON.stringify(votes)
+    })
+      .then(function(r){return r.json()})
+      .then(function(data){
+        if(data.record){callback(true);}
+        else{callback(false,data.message||'Server error');}
+      })
+      .catch(function(){callback(true,'Saved locally (offline)');});
+  });
+}
+
+function selectVote(el,id){
+  document.querySelectorAll('.vote-option').forEach(function(o){o.classList.remove('selected')});
+  el.classList.add('selected');
+  selectedVoteId=id;
+  document.getElementById('vote-submit').disabled=false;
+}
+
+function submitVote(){
+  var name=document.getElementById('voter-name').value.trim();
+  var msg=document.getElementById('vote-msg');
+  var btn=document.getElementById('vote-submit');
+  if(!name){msg.style.color='#c00';msg.textContent='Please enter your name first.';return;}
+  if(!selectedVoteId){msg.style.color='#c00';msg.textContent='Please select an option.';return;}
+  btn.disabled=true;btn.textContent='Saving...';
+  postVote(name.toLowerCase(),selectedVoteId,function(ok,info){
+    btn.disabled=false;btn.textContent='Submit vote';
+    if(ok){
+      msg.style.color='#1D9E75';
+      msg.textContent='Vote saved for '+name+'!'+(info?' ('+info+')':'');
+    }else{
+      msg.style.color='#c00';
+      msg.textContent='Error: '+(info||'Could not save vote.');
+    }
+    renderVoteResults();
+  });
+}
+
+function renderVoteResults(){
+  var container=document.getElementById('results-container');
+  fetchVotes(function(votes){
+    var labels={airbnb1:'Hoi An Ancient Town 5\u2019 walk',airbnb2:'Private Cozy w/ Pool \u2014 5BR',hotel1:'Loc Phat Homestay & Villa',hotel2:'Fairy Garden Villa'};
+    var tally={},total=0,voterMap={};
+    Object.keys(votes).forEach(function(n){
+      var v=votes[n];tally[v]=(tally[v]||0)+1;total++;
+      if(!voterMap[v])voterMap[v]=[];
+      voterMap[v].push(n.charAt(0).toUpperCase()+n.slice(1));
+    });
+    if(total===0){container.innerHTML='<p style="font-size:13px;color:var(--sub)">No votes yet.</p>';return;}
+    var html='';
+    ['airbnb1','airbnb2','hotel1','hotel2'].forEach(function(k){
+      var count=tally[k]||0;var pct=Math.round(count/total*100);
+      var voters=voterMap[k]?voterMap[k].join(', '):'';
+      html+='<div class="result-row" style="margin-bottom:12px">';
+      html+='<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px"><span>'+labels[k]+'</span><span>'+count+' vote'+(count!==1?'s':'')+'</span></div>';
+      html+='<div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:var(--accent);border-radius:6px;transition:width 0.3s"></div></div>';
+      if(voters) html+='<div class="result-bar-voters">'+voters+'</div>';
+      html+='</div>';
+    });
+    container.innerHTML=html;
+  });
+}
+renderVoteResults();
+
+// Fix map rendering for the initially open day card
+setTimeout(function(){
+var el=document.getElementById('map-day1');
+if(el&&el._leafletMap) el._leafletMap.invalidateSize();
+},200);
+</script>
+</body>
+</html>
