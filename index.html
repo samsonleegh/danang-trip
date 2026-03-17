@@ -380,154 +380,6 @@ table.data .total-row{background:#FFF5EB;font-weight:600}
 <h3 style="margin-bottom:4px" data-i18n="vote_title">Hoi An Accommodation Vote</h3>
 <p style="font-size:13px;color:var(--sub);margin-bottom:16px" data-i18n="vote_desc">Pick your preferred stay for 16–18 May (2 nights). One vote per person — you can change your vote anytime.</p>
 
-<div class="cmp-toggle" onclick="var w=document.getElementById('cmp-table');var a=this.querySelector('.arrow');if(w.style.display==='none'){w.style.display='';a.classList.add('open')}else{w.style.display='none';a.classList.remove('open')}">
-<span class="arrow open">&#9654;</span> <span data-i18n="cmp_toggle">Compare all options side-by-side</span>
-</div>
-<div id="cmp-table">
-<div class="cmp-wrap">
-<table>
-<thead>
-<tr>
-  <th style="width:130px" data-i18n="cmp_criteria">Criteria</th>
-  <th class="hotel">1. Fairy Garden Villa<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Agoda · Cam Nam</span></th>
-  <th class="hotel">2. Loc Phat Homestay<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Agoda · Cam Chau</span></th>
-  <th class="hotel crec">4. Bee's Private Villa<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Airbnb · entire home ★</span></th>
-  <th class="hotel">5. Coco Viet Home<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Airbnb · entire home</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="csec"><td colspan="5" data-i18n="cmp_logistics">Logistics</td></tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_price">Price (2 nights)</td>
-  <td>SGD 14/room/night<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_multi_room">Multiple rooms needed</span></td>
-  <td>SGD 23/room/night<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_multi_room2">Multiple rooms needed</span></td>
-  <td class="crec"><span style="font-weight:500">SGD 438 total</span></td>
-  <td><span style="font-weight:500">SGD 542 total</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_pax">Price per pax<br><span style="font-weight:400;font-size:11px">(est. 5 rooms)</span></td>
-  <td><span class="cyes">~SGD 16/pax</span><br><span style="color:var(--sub);font-size:12px">5 rooms × SGD 14 × 2</span></td>
-  <td><span class="cyes">~SGD 26/pax</span><br><span style="color:var(--sub);font-size:12px">5 rooms × SGD 23 × 2</span></td>
-  <td class="crec"><span style="font-weight:500">SGD 49/pax</span><br><span style="color:var(--sub);font-size:12px">SGD 438 ÷ 9</span></td>
-  <td><span style="font-weight:500">SGD 60/pax</span><br><span style="color:var(--sub);font-size:12px">SGD 542 ÷ 9</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_capacity">Capacity for 9</td>
-  <td><span class="cwarn" data-i18n="cmp_split">Split across rooms</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_not_excl">Not exclusive</span></td>
-  <td><span class="cwarn" data-i18n="cmp_split2">Split across rooms</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_not_excl2">Not exclusive</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_10g">10 guests max</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_5br">5 bedrooms, private</span></td>
-  <td><span class="cyes" data-i18n="cmp_16g">16 guests max</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_6br">6 bedrooms, private</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_exclusivity">Exclusivity</td>
-  <td><span class="cno" data-i18n="cmp_shared">Shared property</span></td>
-  <td><span class="cno" data-i18n="cmp_shared2">Shared property</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_entire">Entire home</span></td>
-  <td><span class="cyes" data-i18n="cmp_entire2">Entire home</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_dist">Distance to Old Town</td>
-  <td>~2–3 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d1">10 min bike / 5 min Grab</span></td>
-  <td>~1.6 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d2">18 min walk / Grab</span></td>
-  <td class="crec">~2–3 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d3">10 min bike / quick Grab</span></td>
-  <td><span class="cyes">~400m</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d4">3–5 min walk</span></td>
-</tr>
-<tr class="csec"><td colspan="5" data-i18n="cmp_cons">Key cons</td></tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_watchouts">Watch-outs</td>
-  <td>
-    <span class="ctag" data-i18n="cmp_c_ne1">Not exclusive</span>
-    <span class="ctag" data-i18n="cmp_c_nw1">Not walkable to Old Town</span>
-    <span class="ctag" data-i18n="cmp_c_dk">Dark at night</span>
-  </td>
-  <td>
-    <span class="ctag" data-i18n="cmp_c_ne2">Not exclusive</span>
-    <span class="ctag" data-i18n="cmp_c_nw2">Not walkable to Old Town</span>
-    <span class="ctag" data-i18n="cmp_c_np1">No pool</span>
-  </td>
-  <td class="crec">
-    <span class="ctag" data-i18n="cmp_c_nw3">Not walkable to Old Town</span>
-    <span class="ctag" data-i18n="cmp_c_nb">No breakfast included</span>
-    <span class="ctag" data-i18n="cmp_c_new">Newer listing (14 reviews)</span>
-  </td>
-  <td>
-    <span class="ctag" data-i18n="cmp_c_np2">No pool</span>
-    <span class="ctag" data-i18n="cmp_c_mq">Mosquito reports</span>
-    <span class="ctag" data-i18n="cmp_c_ac">No AC in common area</span>
-    <span class="ctag" data-i18n="cmp_c_lv">Lowest value rating</span>
-  </td>
-</tr>
-<tr class="csec"><td colspan="5" data-i18n="cmp_facilities">Facilities</td></tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_pool">Pool</td>
-  <td><span class="cyes" data-i18n="cmp_pool_yes">Yes</span> + jacuzzi</td>
-  <td><span class="cno" data-i18n="cmp_pool_no1">No</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_pool_yes2">Yes</span></td>
-  <td><span class="cno" data-i18n="cmp_pool_no2">No</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_kitchen">Kitchen</td>
-  <td data-i18n="cmp_k1">Shared/communal</td>
-  <td data-i18n="cmp_k2">On-site restaurant</td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_k3">Full private kitchen</span></td>
-  <td><span class="cyes" data-i18n="cmp_k4">Full private kitchen</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_breakfast">Breakfast</td>
-  <td><span class="cyes" data-i18n="cmp_bf1">Included</span></td>
-  <td><span class="cyes" data-i18n="cmp_bf2">Included</span></td>
-  <td class="crec"><span class="cwarn" data-i18n="cmp_bf3">Not included</span></td>
-  <td><span class="cwarn" data-i18n="cmp_bf4">Not included</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_bikes">Free bikes</td>
-  <td><span class="cyes" data-i18n="cmp_bk1">Yes</span></td>
-  <td><span class="cyes" data-i18n="cmp_bk2">Yes</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_bk3">Yes</span></td>
-  <td><span class="cyes" data-i18n="cmp_bk4">Yes (6 bikes)</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_bbq">BBQ / outdoor</td>
-  <td data-i18n="cmp_bbq1">Garden, sunbeds</td>
-  <td data-i18n="cmp_bbq2">Garden terrace</td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_bbq3">Pool + BBQ + alfresco dining</span></td>
-  <td data-i18n="cmp_bbq4">Balconies, large lounge</td>
-</tr>
-<tr class="csec"><td colspan="5" data-i18n="cmp_group">Suitability for group</td></tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_elderly">Good for elderly (60+)</td>
-  <td><span class="cwarn" data-i18n="cmp_e1">Moderate</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e1d">Bike-dependent</span></td>
-  <td><span class="cyes" data-i18n="cmp_e2">Better</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e2d">Grab easy, garden rest</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_e3">Good</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e3d">Pool/garden to rest at villa</span></td>
-  <td><span class="cyes" data-i18n="cmp_e4">Best</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e4d">Walk to Old Town</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_cohesion">Group cohesion</td>
-  <td><span class="cno" data-i18n="cmp_gc1">Low</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc1d">Scattered across rooms</span></td>
-  <td><span class="cno" data-i18n="cmp_gc2">Low</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc2d">Scattered across rooms</span></td>
-  <td class="crec"><span class="cyes" data-i18n="cmp_gc3">High</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc3d">Shared villa, pool, common areas</span></td>
-  <td><span class="cyes" data-i18n="cmp_gc4">High</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc4d">Large common room, 10-seat dining</span></td>
-</tr>
-<tr class="csec"><td colspan="5" data-i18n="cmp_ratings">Ratings</td></tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_overall">Overall rating</td>
-  <td><span class="cbadge cb-green">9.3 / 10</span></td>
-  <td><span class="cbadge cb-green">9.3 / 10</span></td>
-  <td class="crec"><span class="cbadge cb-green">5.0 / 5.0 (14 reviews)</span></td>
-  <td><span class="cbadge cb-amber">4.76 / 5.0 (34 reviews)</span></td>
-</tr>
-<tr>
-  <td class="clabel" data-i18n="cmp_host">Host</td>
-  <td data-i18n="cmp_h1">Vincent — warm, responsive</td>
-  <td data-i18n="cmp_h2">Ms Linh — family-oriented</td>
-  <td class="crec" data-i18n="cmp_h3">Bee — Superhost, 100% response</td>
-  <td data-i18n="cmp_h4">Tam — Superhost, 98% response</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
 <div id="vote-setup-banner" class="vote-setup-msg" style="display:none" data-i18n="vote_setup">
 Shared voting not connected yet — votes are saved locally only. Set up jsonbin.io to enable shared results across all devices.
 </div>
@@ -562,10 +414,10 @@ Shared voting not connected yet — votes are saved locally only. Set up jsonbin
 <div class="vote-option" onclick="selectVote(this,'hotel1')">
 <div class="vote-radio"></div>
 <div class="vote-detail">
-<h4>Loc Phat Hoi An Homestay & Villa</h4>
-<p data-i18n="vote_h1_p">Homestay villa on Agoda</p>
+<h4>Legend Hotel Hoi An</h4>
+<p data-i18n="vote_h1_p">3-star hotel with pool on Agoda</p>
 </div>
-<a class="vote-link" href="https://www.agoda.com/loc-phat-hoi-an-homestay-villa/hotel/hoi-an-vn.html" target="_blank" onclick="event.stopPropagation()" data-i18n="vote_view">View &rarr;</a>
+<a class="vote-link" href="https://www.agoda.com/en-sg/legend-hotel/hotel/hoi-an-vn.html?checkin=2026-05-16&checkout=2026-05-18&los=2&rooms=5&adults=9&children=0" target="_blank" onclick="event.stopPropagation()" data-i18n="vote_view">View &rarr;</a>
 </div>
 <div class="vote-option" onclick="selectVote(this,'hotel2')">
 <div class="vote-radio"></div>
@@ -585,6 +437,157 @@ Shared voting not connected yet — votes are saved locally only. Set up jsonbin
 <div id="results-container"><p style="font-size:13px;color:var(--sub)" data-i18n="vote_none">No votes yet.</p></div>
 <button class="vote-btn" id="reset-btn" onclick="resetVotes()" style="display:none;margin-top:12px;background:#c00;font-size:13px;padding:8px 18px" data-i18n="vote_reset">Reset all votes</button>
 </div>
+
+<div style="margin-top:28px">
+<div class="cmp-toggle" onclick="var w=document.getElementById('cmp-table');var a=this.querySelector('.arrow');if(w.style.display==='none'){w.style.display='';a.classList.add('open')}else{w.style.display='none';a.classList.remove('open')}">
+<span class="arrow">&#9654;</span> <span data-i18n="cmp_toggle">Compare all options side-by-side</span>
+</div>
+<div id="cmp-table" style="display:none">
+<div class="cmp-wrap">
+<table>
+<thead>
+<tr>
+  <th style="width:130px" data-i18n="cmp_criteria">Criteria</th>
+  <th class="hotel">1. Fairy Garden Villa<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Agoda · Cam Nam</span></th>
+  <th class="hotel">2. Legend Hotel<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Agoda · Cam Nam · 3-star</span></th>
+  <th class="hotel crec">4. Bee's Private Villa<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Airbnb · entire home ★</span></th>
+  <th class="hotel">5. Coco Viet Home<br><span style="font-weight:400;font-size:11px;color:var(--sub)">Airbnb · entire home</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="csec"><td colspan="5" data-i18n="cmp_logistics">Logistics</td></tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_price">Price (2 nights)</td>
+  <td>SGD 14/room/night</td>
+  <td data-i18n="cmp_price2">Confirm on Agoda<br><span style="color:var(--sub);font-size:12px">Est. SGD 20–35/room/night</span></td>
+  <td class="crec"><span style="font-weight:500">SGD 438 total</span></td>
+  <td><span style="font-weight:500">SGD 542 total</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_pax">Price per pax<br><span style="font-weight:400;font-size:11px">(est. 5 rooms)</span></td>
+  <td><span class="cyes">~SGD 16/pax</span><br><span style="color:var(--sub);font-size:12px">5 rooms × SGD 14 × 2</span></td>
+  <td><span class="cwarn">~SGD 22–39/pax</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_pax2d">5 rooms × est. rate × 2</span></td>
+  <td class="crec"><span class="cyes">SGD 49/pax</span><br><span style="color:var(--sub);font-size:12px">SGD 438 ÷ 9</span></td>
+  <td>SGD 60/pax<br><span style="color:var(--sub);font-size:12px">SGD 542 ÷ 9</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_capacity">Capacity for 9</td>
+  <td><span class="cwarn" data-i18n="cmp_split">Split across rooms</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_not_excl">Not exclusive</span></td>
+  <td><span class="cwarn" data-i18n="cmp_split2">Split across rooms</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_not_excl2">Not exclusive, 46 rooms total</span></td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_10g">10 guests max</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_5br">5 bedrooms, private</span></td>
+  <td><span class="cyes" data-i18n="cmp_16g">16 guests max</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_6br">6 bedrooms, private</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_exclusivity">Exclusivity</td>
+  <td><span class="cno" data-i18n="cmp_shared">Shared property</span></td>
+  <td><span class="cno" data-i18n="cmp_shared2">Shared property</span></td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_entire">Entire home</span></td>
+  <td><span class="cyes" data-i18n="cmp_entire2">Entire home</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_dist">Distance to Old Town</td>
+  <td>~2–3 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d1">10 min bike / 5 min Grab</span></td>
+  <td>~1–1.5 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d2">5–15 min walk (reviews vary)</span></td>
+  <td class="crec">~2–3 km<br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d3">10 min bike / quick Grab</span></td>
+  <td><span class="cyes">~400m</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_d4">3–5 min walk</span></td>
+</tr>
+<tr class="csec"><td colspan="5" data-i18n="cmp_cons">Key cons</td></tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_watchouts">Watch-outs</td>
+  <td>
+    <span class="ctag" data-i18n="cmp_c_ne1">Not exclusive</span>
+    <span class="ctag" data-i18n="cmp_c_nw1">Not walkable to Old Town</span>
+    <span class="ctag" data-i18n="cmp_c_dk">Dark at night</span>
+  </td>
+  <td>
+    <span class="ctag" data-i18n="cmp_c_ne2">Not exclusive</span>
+    <span class="ctag" data-i18n="cmp_c_nw2">Not walkable to Old Town</span>
+    <span class="ctag" data-i18n="cmp_c_bad">1 bad host review (aggressive owner)</span>
+  </td>
+  <td class="crec">
+    <span class="ctag" data-i18n="cmp_c_nw3">Not walkable to Old Town</span>
+    <span class="ctag" data-i18n="cmp_c_nb">No breakfast included</span>
+    <span class="ctag" data-i18n="cmp_c_new">Newer listing (14 reviews)</span>
+  </td>
+  <td>
+    <span class="ctag" data-i18n="cmp_c_np2">No pool</span>
+    <span class="ctag" data-i18n="cmp_c_mq">Mosquito reports</span>
+    <span class="ctag" data-i18n="cmp_c_ac">No AC in common area</span>
+    <span class="ctag" data-i18n="cmp_c_lv">Lowest value rating</span>
+  </td>
+</tr>
+<tr class="csec"><td colspan="5" data-i18n="cmp_facilities">Facilities</td></tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_pool">Pool</td>
+  <td><span class="cyes" data-i18n="cmp_pool_yes">Yes</span> + jacuzzi</td>
+  <td><span class="cyes" data-i18n="cmp_pool2">Yes</span> — <span style="color:var(--sub);font-size:12px" data-i18n="cmp_pool2d">praised in reviews</span></td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_pool_yes2">Yes</span> + BBQ</td>
+  <td><span class="cno" data-i18n="cmp_pool_no2">No</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_kitchen">Kitchen</td>
+  <td data-i18n="cmp_k1">Shared/communal</td>
+  <td data-i18n="cmp_k2">Shared kitchen + restaurant</td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_k3">Full private kitchen</span></td>
+  <td><span class="cyes" data-i18n="cmp_k4">Full private kitchen</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_breakfast">Breakfast</td>
+  <td><span class="cyes" data-i18n="cmp_bf1">Included</span></td>
+  <td><span class="cyes" data-i18n="cmp_bf2">Included</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_bf2d">Asian continental, made to order</span></td>
+  <td class="crec"><span class="cwarn" data-i18n="cmp_bf3">Not included</span></td>
+  <td><span class="cwarn" data-i18n="cmp_bf4">Not included</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_bikes">Free bikes</td>
+  <td><span class="cyes" data-i18n="cmp_bk1">Yes</span></td>
+  <td data-i18n="cmp_bk2">Rental available on-site</td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_bk3">Yes</span></td>
+  <td><span class="cyes" data-i18n="cmp_bk4">Yes (6 bikes)</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_scale">Property scale</td>
+  <td data-i18n="cmp_s1">15 rooms, boutique</td>
+  <td data-i18n="cmp_s2">46 rooms, proper hotel</td>
+  <td class="crec" data-i18n="cmp_s3">Private villa</td>
+  <td data-i18n="cmp_s4">Private villa</td>
+</tr>
+<tr class="csec"><td colspan="5" data-i18n="cmp_group">Suitability for group</td></tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_elderly">Good for elderly (60+)</td>
+  <td><span class="cwarn" data-i18n="cmp_e1">Moderate</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e1d">Bike-dependent</span></td>
+  <td><span class="cyes" data-i18n="cmp_e2">Better</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e2d">Hotel services, closer to town</span></td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_e3">Good</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e3d">Pool/garden to rest at villa</span></td>
+  <td><span class="cyes" data-i18n="cmp_e4">Best</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_e4d">Walk to Old Town</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_cohesion">Group cohesion</td>
+  <td><span class="cno" data-i18n="cmp_gc1">Low</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc1d">Scattered across rooms</span></td>
+  <td><span class="cno" data-i18n="cmp_gc2">Low</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc2d">Hotel setting, separate rooms</span></td>
+  <td class="crec"><span class="cyes" data-i18n="cmp_gc3">High</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc3d">Shared villa, pool, common areas</span></td>
+  <td><span class="cyes" data-i18n="cmp_gc4">High</span><br><span style="color:var(--sub);font-size:12px" data-i18n="cmp_gc4d">Large common room, 10-seat dining</span></td>
+</tr>
+<tr class="csec"><td colspan="5" data-i18n="cmp_ratings">Ratings</td></tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_overall">Overall rating</td>
+  <td><span class="cbadge cb-green">9.3 / 10</span></td>
+  <td><span class="cbadge cb-green">9.3 / 10 (Agoda)</span></td>
+  <td class="crec"><span class="cbadge cb-green">5.0 / 5.0 (14 reviews)</span></td>
+  <td><span class="cbadge cb-amber">4.76 / 5.0 (34 reviews)</span></td>
+</tr>
+<tr>
+  <td class="clabel" data-i18n="cmp_host">Host</td>
+  <td data-i18n="cmp_h1">Vincent — warm, responsive</td>
+  <td data-i18n="cmp_h2">Staff praised; <span class="cno">1 aggressive owner report</span></td>
+  <td class="crec" data-i18n="cmp_h3">Bee — Superhost, 100% response</td>
+  <td data-i18n="cmp_h4">Tam — Superhost, 98% response</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
 </div>
 
 </div>
@@ -788,7 +791,7 @@ function resetVotes(){
 function renderVoteResults(){
   var container=document.getElementById('results-container');
   fetchVotes(function(votes){
-    var labels={airbnb1:'Hoi An Ancient Town 5\u2019 walk',airbnb2:'Private Cozy w/ Pool \u2014 5BR',hotel1:'Loc Phat Homestay & Villa',hotel2:'Fairy Garden Villa'};
+    var labels={airbnb1:'Hoi An Ancient Town 5\u2019 walk',airbnb2:'Private Cozy w/ Pool \u2014 5BR',hotel1:'Legend Hotel Hoi An',hotel2:'Fairy Garden Villa'};
     var tally={},total=0,voterMap={};
     Object.keys(votes).forEach(function(n){
       var v=votes[n];tally[v]=(tally[v]||0)+1;total++;
@@ -1049,7 +1052,7 @@ vote_ab1_p: {en:'Full house near Ancient Town, free bicycles included', cn:'靠�
 vote_ab2_p: {en:'5-bedroom villa with pool, short ride to old town', cn:'5卧室别墅带泳池，到古城车程很短'},
 vote_view: {en:'View &rarr;', cn:'查看 &rarr;'},
 vote_hotel_h: {en:'🏨 Hotel / Homestay', cn:'🏨 酒店 / 民宿'},
-vote_h1_p: {en:'Homestay villa on Agoda', cn:'Agoda 上的民宿别墅'},
+vote_h1_p: {en:'3-star hotel with pool on Agoda', cn:'Agoda 上的3星酒店，带泳池'},
 vote_h2_p: {en:'Villa on Agoda', cn:'Agoda 上的别墅'},
 vote_submit: {en:'Submit vote', cn:'提交投票'},
 vote_reset: {en:'Reset all votes', cn:'清除所有投票'},
@@ -1062,13 +1065,14 @@ cmp_criteria: {en:'Criteria', cn:'标准'},
 cmp_logistics: {en:'Logistics', cn:'基本信息'},
 cmp_price: {en:'Price (2 nights)', cn:'价格（2晚）'},
 cmp_multi_room: {en:'Multiple rooms needed', cn:'需要多间房'},
-cmp_multi_room2: {en:'Multiple rooms needed', cn:'需要多间房'},
+cmp_price2: {en:'Confirm on Agoda<br><span style="color:var(--sub);font-size:12px">Est. SGD 20–35/room/night</span>', cn:'请在Agoda确认<br><span style="color:var(--sub);font-size:12px">预估 SGD 20–35/房/晚</span>'},
+cmp_pax2d: {en:'5 rooms × est. rate × 2', cn:'5间房 × 预估价 × 2'},
 cmp_pax: {en:'Price per pax<br><span style="font-weight:400;font-size:11px">(est. 5 rooms)</span>', cn:'每人费用<br><span style="font-weight:400;font-size:11px">（约5间房）</span>'},
 cmp_capacity: {en:'Capacity for 9', cn:'9人容量'},
 cmp_split: {en:'Split across rooms', cn:'分散在不同房间'},
 cmp_split2: {en:'Split across rooms', cn:'分散在不同房间'},
 cmp_not_excl: {en:'Not exclusive', cn:'非独享'},
-cmp_not_excl2: {en:'Not exclusive', cn:'非独享'},
+cmp_not_excl2: {en:'Not exclusive, 46 rooms total', cn:'非独享，共46间房'},
 cmp_10g: {en:'10 guests max', cn:'最多10人'},
 cmp_5br: {en:'5 bedrooms, private', cn:'5间卧室，独享'},
 cmp_16g: {en:'16 guests max', cn:'最多16人'},
@@ -1080,7 +1084,7 @@ cmp_entire: {en:'Entire home', cn:'整栋房子'},
 cmp_entire2: {en:'Entire home', cn:'整栋房子'},
 cmp_dist: {en:'Distance to Old Town', cn:'到古城距离'},
 cmp_d1: {en:'10 min bike / 5 min Grab', cn:'骑车10分钟 / Grab 5分钟'},
-cmp_d2: {en:'18 min walk / Grab', cn:'步行18分钟 / Grab'},
+cmp_d2: {en:'5–15 min walk (reviews vary)', cn:'步行5–15分钟（评价不一）'},
 cmp_d3: {en:'10 min bike / quick Grab', cn:'骑车10分钟 / Grab很快'},
 cmp_d4: {en:'3–5 min walk', cn:'步行3–5分钟'},
 cmp_cons: {en:'Key cons', cn:'主要缺点'},
@@ -1090,7 +1094,7 @@ cmp_c_nw1: {en:'Not walkable to Old Town', cn:'不能步行到古城'},
 cmp_c_dk: {en:'Dark at night', cn:'夜间较暗'},
 cmp_c_ne2: {en:'Not exclusive', cn:'非独享'},
 cmp_c_nw2: {en:'Not walkable to Old Town', cn:'不能步行到古城'},
-cmp_c_np1: {en:'No pool', cn:'无泳池'},
+cmp_c_bad: {en:'1 bad host review (aggressive owner)', cn:'1条差评（房东态度差）'},
 cmp_c_nw3: {en:'Not walkable to Old Town', cn:'不能步行到古城'},
 cmp_c_nb: {en:'No breakfast included', cn:'不含早餐'},
 cmp_c_new: {en:'Newer listing (14 reviews)', cn:'较新房源（14条评价）'},
@@ -1101,35 +1105,37 @@ cmp_c_lv: {en:'Lowest value rating', cn:'性价比评分最低'},
 cmp_facilities: {en:'Facilities', cn:'设施'},
 cmp_pool: {en:'Pool', cn:'泳池'},
 cmp_pool_yes: {en:'Yes', cn:'有'},
-cmp_pool_no1: {en:'No', cn:'无'},
+cmp_pool2: {en:'Yes', cn:'有'},
+cmp_pool2d: {en:'praised in reviews', cn:'评价中好评'},
 cmp_pool_yes2: {en:'Yes', cn:'有'},
 cmp_pool_no2: {en:'No', cn:'无'},
 cmp_kitchen: {en:'Kitchen', cn:'厨房'},
 cmp_k1: {en:'Shared/communal', cn:'共用厨房'},
-cmp_k2: {en:'On-site restaurant', cn:'自带餐厅'},
+cmp_k2: {en:'Shared kitchen + restaurant', cn:'共用厨房 + 餐厅'},
 cmp_k3: {en:'Full private kitchen', cn:'完整独立厨房'},
 cmp_k4: {en:'Full private kitchen', cn:'完整独立厨房'},
 cmp_breakfast: {en:'Breakfast', cn:'早餐'},
 cmp_bf1: {en:'Included', cn:'含早餐'},
 cmp_bf2: {en:'Included', cn:'含早餐'},
+cmp_bf2d: {en:'Asian continental, made to order', cn:'亚洲自助早餐，现点现做'},
 cmp_bf3: {en:'Not included', cn:'不含早餐'},
 cmp_bf4: {en:'Not included', cn:'不含早餐'},
 cmp_bikes: {en:'Free bikes', cn:'免费自行车'},
 cmp_bk1: {en:'Yes', cn:'有'},
-cmp_bk2: {en:'Yes', cn:'有'},
+cmp_bk2: {en:'Rental available on-site', cn:'可现场租借'},
 cmp_bk3: {en:'Yes', cn:'有'},
 cmp_bk4: {en:'Yes (6 bikes)', cn:'有（6辆）'},
-cmp_bbq: {en:'BBQ / outdoor', cn:'BBQ / 户外'},
-cmp_bbq1: {en:'Garden, sunbeds', cn:'花园、日光椅'},
-cmp_bbq2: {en:'Garden terrace', cn:'花园露台'},
-cmp_bbq3: {en:'Pool + BBQ + alfresco dining', cn:'泳池 + BBQ + 户外用餐'},
-cmp_bbq4: {en:'Balconies, large lounge', cn:'阳台、大客厅'},
+cmp_scale: {en:'Property scale', cn:'房产规模'},
+cmp_s1: {en:'15 rooms, boutique', cn:'15间房，精品民宿'},
+cmp_s2: {en:'46 rooms, proper hotel', cn:'46间房，正规酒店'},
+cmp_s3: {en:'Private villa', cn:'私人别墅'},
+cmp_s4: {en:'Private villa', cn:'私人别墅'},
 cmp_group: {en:'Suitability for group', cn:'团体适合度'},
 cmp_elderly: {en:'Good for elderly (60+)', cn:'适合长辈（60+）'},
 cmp_e1: {en:'Moderate', cn:'一般'},
 cmp_e1d: {en:'Bike-dependent', cn:'依赖骑车'},
 cmp_e2: {en:'Better', cn:'较好'},
-cmp_e2d: {en:'Grab easy, garden rest', cn:'Grab方便，花园可休息'},
+cmp_e2d: {en:'Hotel services, closer to town', cn:'酒店服务，离古城更近'},
 cmp_e3: {en:'Good', cn:'好'},
 cmp_e3d: {en:'Pool/garden to rest at villa', cn:'泳池/花园可在别墅休息'},
 cmp_e4: {en:'Best', cn:'最佳'},
@@ -1138,7 +1144,7 @@ cmp_cohesion: {en:'Group cohesion', cn:'团体凝聚力'},
 cmp_gc1: {en:'Low', cn:'低'},
 cmp_gc1d: {en:'Scattered across rooms', cn:'分散在各房间'},
 cmp_gc2: {en:'Low', cn:'低'},
-cmp_gc2d: {en:'Scattered across rooms', cn:'分散在各房间'},
+cmp_gc2d: {en:'Hotel setting, separate rooms', cn:'酒店设置，各自房间'},
 cmp_gc3: {en:'High', cn:'高'},
 cmp_gc3d: {en:'Shared villa, pool, common areas', cn:'共享别墅、泳池、公共区域'},
 cmp_gc4: {en:'High', cn:'高'},
@@ -1147,7 +1153,7 @@ cmp_ratings: {en:'Ratings', cn:'评分'},
 cmp_overall: {en:'Overall rating', cn:'总评分'},
 cmp_host: {en:'Host', cn:'房东'},
 cmp_h1: {en:'Vincent — warm, responsive', cn:'Vincent — 热情、回复快'},
-cmp_h2: {en:'Ms Linh — family-oriented', cn:'Ms Linh — 家庭友好'},
+cmp_h2: {en:'Staff praised; <span class="cno">1 aggressive owner report</span>', cn:'员工好评；<span class="cno">1条房东态度差的报告</span>'},
 cmp_h3: {en:'Bee — Superhost, 100% response', cn:'Bee — 超赞房东，100%回复率'},
 cmp_h4: {en:'Tam — Superhost, 98% response', cn:'Tam — 超赞房东，98%回复率'}
 };
