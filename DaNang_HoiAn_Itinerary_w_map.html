@@ -381,9 +381,9 @@ table.data .total-row{background:#FFF5EB;font-weight:600}
 <p style="font-size:13px;color:var(--sub);margin-bottom:16px" data-i18n="vote_desc">Pick your preferred stay for 16–18 May (2 nights). One vote per person — you can change your vote anytime.</p>
 
 <div class="cmp-toggle" onclick="var w=document.getElementById('cmp-table');var a=this.querySelector('.arrow');if(w.style.display==='none'){w.style.display='';a.classList.add('open')}else{w.style.display='none';a.classList.remove('open')}">
-<span class="arrow open">&#9654;</span> <span data-i18n="cmp_toggle">Compare all options side-by-side</span>
+<span class="arrow">&#9654;</span> <span data-i18n="cmp_toggle">Compare all options side-by-side</span>
 </div>
-<div id="cmp-table">
+<div id="cmp-table" style="display:none">
 <div class="cmp-wrap">
 <table>
 <thead>
